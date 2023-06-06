@@ -1,0 +1,8 @@
+.Timer {
+    color: white;
+    fontSize: 20;
+    background-color: #019a10;
+    display: flex;
+    width: 600px;
+    justify-content: center;
+}
