@@ -1,65 +1,60 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import Board from "./Board";
 import createBoard from "../util/createBoard";
 import Timer from "./Timer";
 
-export default function Game () {
+export default function Game() {
     const numOfRows = 10
     const numOfCols = 10
     const numOfBombs = 30
 
-    const[gameOver, setGameOver] = useState(false)
-    const [boardData, setBoardData] = useState(createBoard(numOfRows * numOfCols, numOfBombs))
-
-    // const [grid, setGrid] = useState([]);
-    // const[nonMineCount, setNonMineCount] = useState(0)
-    // const [minesLocations, setMinesLocations] = useState([])
-
-    let [time, setTime] = useState(0);
-
-    useEffect(() => {
-        if (time > 0 && gameOver) {
-            setTime(0);
-        }
-    }, [gameOver, time]);
+    const [gameOver, setGameOver] = useState(false)
+    const [boardData, setBoardData] = useState({
+        board: [],
+        minesLocations: [],
+        numOfNonBombs: 0
+    });
+    const [time, setTime] = useState(0);
 
     useEffect(() => {
-        function incrementTime() {
-            setTimeout(() => {
-                let newTime = time + 1;
-                setTime(newTime)
-            },1000)
+        let timer;
+        if (!gameOver) {
+            timer = setInterval(() => {
+                setTime(prev => prev + 1);
+            }, 1000);
         }
-        incrementTime()
-    }, [time]);
+        return () => {
+            clearInterval(timer);
+            if (gameOver) {
+                setTime(0);
+            }
+        };
+    }, [gameOver]);
 
     useEffect(() => {
         refreshBoard()
-    },[]);
+    }, []);
 
     const refreshBoard = () => {
-        // const newBoard = createBoard(numOfRows * numOfCols, numOfBombs);
-        setBoardData(createBoard(numOfRows * numOfCols, numOfBombs))
-        // setNonMineCount(numOfRows * numOfCols - numOfBombs)
-        // setMinesLocations(newBoard.minesLocations)
-        // setGrid(newBoard.board)
-    }
+        const newBoard = createBoard(numOfRows, numOfCols, numOfBombs);
+        setBoardData(newBoard);
+    };
 
     const restartGame = () => {
-        refreshBoard()
-        setGameOver(false)
-    }
-
+        refreshBoard();
+        setGameOver(false);
+        setTime(0);
+    };
 
     return (
-        <div>
+        <div className='game'>
             <Timer time={time} />
-            <Board gameover={gameOver} setGameOver={setGameOver} boardData={boardData}></Board>
-
+            <Board gameOver={gameOver}
+                setGameOver={setGameOver}
+                boardData={boardData}
+                setBoardData={setBoardData}
+                restartGame={restartGame}>
+            </Board>
         </div>
     )
-
-
-
-
 }

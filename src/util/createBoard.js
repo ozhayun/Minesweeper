@@ -1,5 +1,4 @@
 function createBoard(row, col, bombs) {
-    console.log("row", row, "col", col, "bomb",bombs)
 
     if (bombs > row * col) {
         bombs = Math.floor(row * col / 3);
@@ -8,11 +7,9 @@ function createBoard(row, col, bombs) {
     const numOfNonBombs = row * col - bombs
     let board = createEmptyBoard(row, col)
     let minesLocations = [];
-    console.log("empty board",board)
     plantBombsOnBoard(board, bombs, minesLocations)
-    console.log("after plant board",board)
     countNeighbors(board)
-    return {board, numOfNonBombs, minesLocations};
+    return { board, numOfNonBombs, minesLocations };
 }
 
 function createEmptyBoard(row, col) {
@@ -20,7 +17,8 @@ function createEmptyBoard(row, col) {
     for (let x = 0; x < row; x++) {
         let subCol = [];
         for (let y = 0; y < col; y++) {
-            subCol.push({value: 0,
+            subCol.push({
+                value: 0,
                 revealed: false,
                 x: x,
                 y: y,
@@ -29,11 +27,10 @@ function createEmptyBoard(row, col) {
         }
         board.push(subCol);
     }
-    console.log("im in empty board: ", board)
     return board;
 }
 
-function plantBombsOnBoard(board, bombs, mineLocation){
+function plantBombsOnBoard(board, bombs, mineLocation) {
     let rows = board.length;
     let cols = board[0].length;
     let bombPlantedCount = 0;
@@ -45,7 +42,7 @@ function plantBombsOnBoard(board, bombs, mineLocation){
         // If the chosen spot doesn't already contain a bomb, plant one there
         if (board[randRow][randCol] !== 'B') {
             board[randRow][randCol].value = 'B';
-            mineLocation.push([randRow,randCol])
+            mineLocation.push([randRow, randCol])
             bombPlantedCount++;
         }
     }
@@ -123,19 +120,6 @@ function randomNum(min = 0, max) {
 
 
 export default createBoard
-
-
-
-
-// function createEmptyBoard(row, col) {
-//     let board = new Array(row).fill(null).map(() => new Array(col).fill(0));
-//     console.log("im in empty board: ", board)
-//     return board;
-// }
-
-
-
-
 
 
 
