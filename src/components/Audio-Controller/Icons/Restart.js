@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Restart = ({ color = "#b8dbc7", size = "24" }) => (
+const Restart = ({ color = "white", size = "24" }) => (
   <svg
     width={size}
     height={size}

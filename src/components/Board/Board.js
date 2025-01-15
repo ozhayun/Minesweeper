@@ -1,11 +1,14 @@
 import Cell from "./Cell";
 import "./Board.css"
-import { revealed } from "../util/reveal";
-import Modal from "./Modal";
+import { revealed } from "../../util/reveal";
 import { useEffect, useState } from "react";
 
-const Board = ({ gameOver, setGameOver, boardData, setBoardData, isPaused }) => {
+const Board = ({ gameOver, setGameOver, boardData, setBoardData, isPaused, onStatsUpdate }) => {
     const [isGameEnded, setIsGameEnded] = useState(false);
+    const [stats, setStats] = useState({
+        revealed: 0,
+        flagged: 0
+    });
 
     useEffect(() => {
         if (gameOver) {
@@ -14,6 +17,30 @@ const Board = ({ gameOver, setGameOver, boardData, setBoardData, isPaused }) => 
             setIsGameEnded(false);
         }
     }, [gameOver]);
+
+    useEffect(() => {
+        // Calculate and update stats whenever board changes
+        const newStats = calculateBoardStats();
+        setStats(newStats);
+        onStatsUpdate?.(newStats.revealed, newStats.flagged);
+    }, [boardData.board]);
+
+    const calculateBoardStats = () => {
+        if (!boardData.board) return { revealed: 0, flagged: 0 };
+        
+        let revealed = 0;
+        let flagged = 0;
+        
+        boardData.board.forEach(row => {
+            row.forEach(cell => {
+                // Only count revealed cells that are not bombs
+                if (cell.revealed && cell.value !== 'B') revealed++;
+                if (cell.flagged) flagged++;
+            });
+        });
+        
+        return { revealed, flagged };
+    };
 
     if (!boardData || !boardData.board) {
         console.error('boardData or boardData.board is undefined:', boardData);

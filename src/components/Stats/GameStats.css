@@ -1,0 +1,15 @@
+.game-stats {
+    margin-bottom: 2rem;
+    border: 0.2rem solid #b8dbc7;  
+    background-color: #019a10;
+    border-radius: 2rem;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+} 

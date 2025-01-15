@@ -1,6 +1,6 @@
 import React from "react";
 import "./Cell.css"
-import {mineColor} from "../util/mineColors";
+import {mineColor} from "../../util/mineColors";
 
 const Cell = ({ cell, updateFlag, revealCell }) => {
     const style = {

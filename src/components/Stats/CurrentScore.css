@@ -1,0 +1,22 @@
+.current-score {
+    display: flex;
+    gap: 1.5rem;
+    color: white;
+    font-size: 2rem;
+}
+
+.score-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.score-icon {
+    font-size: 2rem;
+}
+
+.score-value {
+    font-weight: bold;
+    min-width: 2ch;
+    text-align: center;
+} 

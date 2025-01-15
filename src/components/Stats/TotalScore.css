@@ -1,0 +1,38 @@
+.total-score {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    padding: 1rem 1rem;
+    color: white;
+    font-size: 1.5rem;
+    align-items: center;
+}
+
+.score-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.score-icon {
+    font-size: 2rem;
+}
+
+.score-value {
+    font-weight: bold;
+}
+
+.win-rate {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.rate-label {
+    font-size: 1.2rem;
+}
+
+.rate-value {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
