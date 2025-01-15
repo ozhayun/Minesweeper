@@ -23,7 +23,7 @@ const Board = ({ gameOver, setGameOver, boardData, setBoardData, isPaused, onSta
         const newStats = calculateBoardStats();
         setStats(newStats);
         onStatsUpdate?.(newStats.revealed, newStats.flagged);
-    }, [boardData.board]);
+    }, [boardData.board, calculateBoardStats, onStatsUpdate]);
 
     const calculateBoardStats = () => {
         if (!boardData.board) return { revealed: 0, flagged: 0 };
