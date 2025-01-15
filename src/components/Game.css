@@ -9,7 +9,6 @@
 .game-title {
     font-size: 3.5rem;
     color: #333;
-    margin: 2rem 0;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -24,3 +23,14 @@
     filter: blur(5px);
     pointer-events: none;
 } 
+
+.game-container-no-controller {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-container-no-controller.blur {
+    filter: blur(5px);
+    pointer-events: none;
+}

@@ -3,6 +3,7 @@ import Board from "./Board";
 import createBoard from "../util/createBoard";
 import Timer from "./Timer";
 import Modal from "./Modal";
+import Controller from './Audio-Controller/Controller';
 import "./Game.css";
 
 export default function Game() {
@@ -13,6 +14,7 @@ export default function Game() {
     const [gameOver, setGameOver] = useState(false)
     const [showModal, setShowModal] = useState(false)
     const [gameStarted, setGameStarted] = useState(false)
+    const [isPaused, setIsPaused] = useState(false)
     const [boardData, setBoardData] = useState({
         board: [],
         minesLocations: [],
@@ -22,7 +24,7 @@ export default function Game() {
 
     useEffect(() => {
         let timer;
-        if (!gameOver && gameStarted) {
+        if (!gameOver && gameStarted && !isPaused) {
             timer = setInterval(() => {
                 setTime(prev => prev + 1);
             }, 1000);
@@ -33,11 +35,10 @@ export default function Game() {
                 setTime(0);
             }
         };
-    }, [gameOver, gameStarted]);
+    }, [gameOver, gameStarted, isPaused]);
 
     useEffect(() => {
         if (gameOver) {
-            // Delay showing the modal by 1500ms
             const timer = setTimeout(() => {
                 setShowModal(true);
             }, 1500);
@@ -61,20 +62,34 @@ export default function Game() {
         setGameOver(false);
         setShowModal(false);
         setGameStarted(true);
+        setIsPaused(false);
         setTime(0);
+    };
+
+    const handlePlayPause = (isPlaying) => {
+        setIsPaused(!isPlaying);
     };
 
     return (
         <div className='game-wrapper'>
             <div className={`game-container ${(!gameStarted || showModal) ? 'blur' : ''}`}>
-                <Timer time={time} />
-                <Board gameOver={gameOver}
-                    setGameOver={setGameOver}
-                    boardData={boardData}
-                    setBoardData={setBoardData}
-                    restartGame={restartGame}>
-                </Board>
+                    <Timer time={time} />
+                    <div className={`game-container-no-controller ${isPaused ?'blur' : ''}`}>
+                        <Board gameOver={gameOver}
+                            setGameOver={setGameOver}
+                            boardData={boardData}
+                            setBoardData={setBoardData}
+                            isPaused={isPaused}
+                            restartGame={restartGame}>
+                        </Board>
+                    </div>
+                    <Controller 
+                        restartGame={restartGame}
+                        onPlayPause={handlePlayPause}
+                        disabled={!gameStarted || gameOver}
+                    />           
             </div>
+
             {(!gameStarted || showModal) && 
                 <Modal 
                     restartGame={restartGame} 
@@ -83,4 +98,4 @@ export default function Game() {
             }
         </div>
     )
-}
+    }

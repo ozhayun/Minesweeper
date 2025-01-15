@@ -41,6 +41,7 @@
 
 .modal-title {
     font-size: 3rem;
+    font-family: Comic Sans MS, Comic Sans, cursive;
     margin-bottom: 2rem;
     color: #333;
 }
@@ -54,6 +55,7 @@
     color: white;
     padding: 1rem 3rem;
     font-weight: 700;
+    font-family: Comic Sans MS, Comic Sans, cursive;
     transition: all 0.2s ease;
     border: none;
     outline: none;

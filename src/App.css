@@ -5,8 +5,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   font-size: 3rem;
+  font-family: Comic Sans MS, Comic Sans, cursive;
   color: white;
   user-select: none;
 }
