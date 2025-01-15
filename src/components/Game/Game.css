@@ -16,21 +16,26 @@
     flex-direction: column;
     align-items: center;
     transition: filter 0.3s ease-in-out;
-    width: 100%;
 }
 
 .game-container.blur {
     filter: blur(5px);
-    pointer-events: none;
-} 
+}
 
 .game-container-no-controller {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    transition: filter 0.3s ease-in-out;
 }
 
 .game-container-no-controller.blur {
-    filter: blur(5px);
-    pointer-events: none;
+    filter: blur(2px);
+}
+
+/* When viewing board after game over */
+.game-container.viewing-board {
+    filter: blur(0);
+}
+
+.game-container-no-controller.viewing-board {
+    filter: blur(1px);
+    opacity: 0.9;
 }

@@ -117,7 +117,7 @@ export default function Game() {
         <div className='game-wrapper'>
             <h1 className='game-title'>Minesweeper Game</h1>
             <DifficultySelector onDifficultyChange={handleDifficultyChange} />
-            <div className={`game-container ${(!gameStarted || (showModal && !viewingBoard)) ? 'blur' : ''}`}>
+            <div className={`game-container ${(!gameStarted || (showModal && !viewingBoard)) ? 'blur' : ''} ${viewingBoard ? 'viewing-board' : ''}`}>
                 <GameStats 
                     time={time}
                     revealedCells={gameStats.revealedCells}
@@ -126,7 +126,7 @@ export default function Game() {
                     gamesWon={gameStats.gamesWon}
                     totalGames={gameStats.totalGames}
                 />
-                <div className={`game-container-no-controller ${isPaused ? 'blur' : ''}`}>
+                <div className={`game-container-no-controller ${isPaused ? 'blur' : ''} ${viewingBoard ? 'viewing-board' : ''}`}>
                     <Board 
                         gameOver={gameOver}
                         setGameOver={setGameOver}

@@ -4,7 +4,7 @@ import './DifficultySelector.css';
 const DIFFICULTY_PRESETS = {
     beginner: { rows: 8, cols: 8, bombs: 10, color: '#4CAF50' },
     intermediate: { rows: 12, cols: 12, bombs: 30, color: '#FFA726' },
-    expert: { rows: 16, cols: 16, bombs: 50, color: '#EF5350' },
+    expert: { rows: 12, cols: 22, bombs: 50, color: '#EF5350' },
     custom: { color: '#7E57C2' }
 };
 
@@ -83,12 +83,20 @@ const DifficultySelector = ({ onDifficultyChange }) => {
                             max={customValues.rows * customValues.cols - 1}
                         />
                     </div>
-                    <button 
-                        className="update-button"
-                        onClick={handleCustomUpdate}
-                    >
-                        Update
-                    </button>
+                    <div className='update-container'>
+                        <button 
+                            className="update-button"
+                            onClick={handleCustomUpdate}
+                        >
+                            Update
+                        </button>
+                        <button 
+                            className="reset-button"
+                            onClick={handleCustomUpdate}
+                        >
+                            Reset
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
