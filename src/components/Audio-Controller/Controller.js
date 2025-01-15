@@ -4,7 +4,7 @@ import Play from './Icons/Play';
 import Pause from './Icons/Pause';
 import Restart from './Icons/Restart';
 
-const Controller = ({ restartGame, onPlayPause, disabled }) => {
+const Controller = ({ restartGame, onPlayPause, disabled, viewingBoard }) => {
     const [isPlaying, setIsPlaying] = useState(true);
 
     const handlePlayPause = () => {
@@ -22,14 +22,16 @@ const Controller = ({ restartGame, onPlayPause, disabled }) => {
 
     return (
         <div className={`controller ${disabled ? 'disabled' : ''}`}>
-            <button 
-                className="controller-button"
-                onClick={handlePlayPause}
-                disabled={disabled}
-                aria-label={isPlaying ? 'Pause' : 'Play'}
-            >
-                {isPlaying ? <Pause /> : <Play />}
-            </button>
+            {!viewingBoard && (
+                <button 
+                    className="controller-button"
+                    onClick={handlePlayPause}
+                    disabled={disabled}
+                    aria-label={isPlaying ? 'Pause' : 'Play'}
+                >
+                    {isPlaying ? <Pause /> : <Play />}
+                </button>
+            )}
             <button 
                 className="controller-button"
                 onClick={handleRestart}

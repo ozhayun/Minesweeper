@@ -18,7 +18,6 @@ export const revealed = (arr, x, y, newNonMinesCount) => {
             break;
         }
 
-        // setTimeout(() => {
         if (
             single.x > 0 &&
             single.y > 0 &&

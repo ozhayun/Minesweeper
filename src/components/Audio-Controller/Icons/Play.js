@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Play = ({ color = "#b8dbc7", size = "24" }) => (
+const Play = ({ color = "white", size = "24" }) => (
   <svg
     width={size}
     height={size}

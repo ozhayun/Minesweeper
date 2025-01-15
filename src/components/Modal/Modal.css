@@ -15,7 +15,7 @@
     height: 100%;
     width: 100%;
     position: absolute;
-    top: 35%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: transparent;
@@ -37,11 +37,36 @@
     border-radius: 1rem;
     text-align: center;
     box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    background: none;
+    font-size: 2rem;
+    line-height: 1;
+    color: #666;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.close-button:hover {
+    background: rgba(0,0,0,0.1);
+    color: #333;
 }
 
 .modal-title {
     font-size: 3rem;
-    font-family: Comic Sans MS, Comic Sans, cursive;
     margin-bottom: 2rem;
     color: #333;
 }
@@ -55,7 +80,6 @@
     color: white;
     padding: 1rem 3rem;
     font-weight: 700;
-    font-family: Comic Sans MS, Comic Sans, cursive;
     transition: all 0.2s ease;
     border: none;
     outline: none;

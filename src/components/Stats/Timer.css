@@ -1,15 +1,10 @@
 .Timer {
     font-size: 2rem;
-    border: 0.2rem solid #b8dbc7;  
-    color: #b8dbc7;
-    background-color: #019a10;
+    color: white;
     display: flex;
-    width: 20%;
     justify-content: center;
     align-items: center;
-    border-radius: 2rem;
     padding: 1rem;
-    margin-bottom: 2rem;
 }
 
 .game {
