@@ -66,7 +66,7 @@ export default function Game() {
 
     useEffect(() => {
         refreshBoard()
-    }, [boardConfig]);
+    }, [boardConfig, refreshBoard]);
 
     const refreshBoard = () => {
         const newBoard = createBoard(boardConfig.rows, boardConfig.cols, boardConfig.bombs);

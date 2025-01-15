@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
+    min-width: 100vw;
     position: relative;
 }
 
@@ -38,4 +39,28 @@
 .game-container-no-controller.viewing-board {
     filter: blur(1px);
     opacity: 0.9;
+}
+
+@media screen and (max-width: 768px) {
+    .game-title {
+        font-size: 2rem;
+        margin: 1rem 0;
+    }
+
+    .game-container {
+        padding: 0.5rem;
+        width: 100%;
+    }
+
+    .game-wrapper {
+        padding: 0 1rem;
+        justify-content: flex-start;
+        padding-top: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .game-title {
+        font-size: 1.8rem;
+    }
 }
