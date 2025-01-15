@@ -8,13 +8,15 @@ const DIFFICULTY_PRESETS = {
     custom: { color: '#7E57C2' }
 };
 
+const DEFAULT_CUSTOM_VALUES = {
+    rows: 10,
+    cols: 10,
+    bombs: 30
+};
+
 const DifficultySelector = ({ onDifficultyChange }) => {
     const [selectedDifficulty, setSelectedDifficulty] = useState('beginner');
-    const [customValues, setCustomValues] = useState({
-        rows: 10,
-        cols: 10,
-        bombs: 30
-    });
+    const [customValues, setCustomValues] = useState(DEFAULT_CUSTOM_VALUES);
     const [showCustom, setShowCustom] = useState(false);
 
     const handleDifficultyClick = (difficulty) => {
@@ -28,6 +30,11 @@ const DifficultySelector = ({ onDifficultyChange }) => {
 
     const handleCustomUpdate = () => {
         onDifficultyChange(customValues);
+    };
+
+    const handleReset = () => {
+        setCustomValues(DEFAULT_CUSTOM_VALUES);
+        onDifficultyChange(DEFAULT_CUSTOM_VALUES);
     };
 
     const handleInputChange = (e) => {
@@ -92,7 +99,7 @@ const DifficultySelector = ({ onDifficultyChange }) => {
                         </button>
                         <button 
                             className="reset-button"
-                            onClick={handleCustomUpdate}
+                            onClick={handleReset}
                         >
                             Reset
                         </button>
@@ -103,4 +110,4 @@ const DifficultySelector = ({ onDifficultyChange }) => {
     );
 };
 
-export default DifficultySelector; 
+export default DifficultySelector;
