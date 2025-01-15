@@ -1,74 +1,83 @@
-import React, {useEffect, useState} from 'react'
-import createBoard from "../util/createBoard";
 import Cell from "./Cell";
 import "./Board.css"
-import {revealed} from "../util/reveal";
+import { revealed } from "../util/reveal";
 import Modal from "./Modal";
-import Timer from "./Timer";
+import { useEffect, useState } from "react";
 
+const Board = ({ gameOver, setGameOver, boardData, setBoardData, restartGame }) => {
+    const [isGameEnded, setIsGameEnded] = useState(false);
 
-const Board = ({ gameOver, setGameOver, boardData, setBoardData}) => {
+    useEffect(() => {
+        if (gameOver) {
+            setIsGameEnded(true);
+        } else {
+            setIsGameEnded(false);
+        }
+    }, [gameOver]);
 
+    if (!boardData || !boardData.board) {
+        console.error('boardData or boardData.board is undefined:', boardData);
+        return <div>Loading...</div>;
+    }
 
-
-    // on Right Click / Flag Cell
     const updateFlag = (e, x, y) => {
         e.preventDefault()
-        let newGrid = JSON.parse(JSON.stringify(boardData.board))
-        newGrid[x][y].flagged = true;
-        // setGrid(newGrid)
-        setBoardData(... newGrid)
+        let newBoardData = JSON.parse(JSON.stringify(boardData))
+        newBoardData.board[x][y].flagged = true;
+        setBoardData(newBoardData)
     };
 
     const revealCell = (x, y) => {
-        // if(grid[x][y].revealed || gameOver) {
-        if(boardData.board[x][y].revealed || gameOver) {
+        if (boardData.board[x][y].revealed || isGameEnded) {
             return;
         }
 
-        let newGrid = JSON.parse(JSON.stringify(grid))
-        let newGrid = JSON.parse(JSON.stringify(boardData.board))
-        if(newGrid[x][y].value === 'B') {
-            for(let i = 0; i < minesLocations.length; i++) {
-               newGrid[minesLocations[i][0]][minesLocations[i][1]].revealed = true;
+        let newBoardData = JSON.parse(JSON.stringify(boardData))
+        if (newBoardData.board[x][y].value === 'B') {
+            // Reveal all bombs when one is clicked
+            for (let i = 0; i < boardData.minesLocations.length; i++) {
+                const [mineX, mineY] = boardData.minesLocations[i];
+                newBoardData.board[mineX][mineY].revealed = true;
             }
-            setGrid(newGrid)
-            setGameOver(true)
+            setBoardData(newBoardData);
+            setIsGameEnded(true);
+            setGameOver(true);
         } else {
-            let newRevealedBoard = revealed(newGrid, x, y, nonMineCount)
-            setGrid(newRevealedBoard.arr)
-            setNonMineCount(newRevealedBoard.newNonMinesCount)
-            if(newRevealedBoard.newNonMinesCount === 0) {
-                setGameOver(true)
+            let newRevealedBoard = revealed(newBoardData.board, x, y, newBoardData.numOfNonBombs)
+            if (newRevealedBoard) {
+                newBoardData.board = newRevealedBoard.arr;
+                newBoardData.numOfNonBombs = newRevealedBoard.newNonMinesCount;
+                setBoardData(newBoardData);
+
+                if (newRevealedBoard.newNonMinesCount === 0) {
+                    setIsGameEnded(true);
+                    setGameOver(true);
+                }
             }
         }
     }
 
     return (
         <div className="Board">
-            {gameOver &&<Modal restartGame={restartGame}/>}
-            {<Timer />}
-            {grid.map((singleRow, i) => {
-            return (
-                  <div key={i} className="rowBoard">
-                      {singleRow.map((singleCell, j) => {
-                        return (
-                          <Cell key={j}
-                                cell={singleCell}
-                                updateFlag={updateFlag}
-                                revealCell={revealCell}
-                          />
-                        );
-                  })}
-                  </div>
-            );
+            {isGameEnded && <Modal restartGame={restartGame} />}
+            {boardData.board.map((singleRow, i) => {
+                return (
+                    <div key={i} className="rowBoard">
+                        {singleRow.map((singleCell, j) => {
+                            return (
+                                <Cell key={j}
+                                    cell={singleCell}
+                                    updateFlag={(e) => updateFlag(e, i, j)}
+                                    revealCell={() => revealCell(i, j)}
+                                />
+                            );
+                        })}
+                    </div>
+                );
             })}
         </div>
     );
 };
 
-
-
-
-
 export default Board;
+

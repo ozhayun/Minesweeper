@@ -5,9 +5,10 @@ function Modal({ restartGame }) {
     const [render, setRender] = useState(false);
 
     useEffect(() => {
-        setTimeout(() => {
+        // Set render to true immediately after mount to trigger the transition
+        requestAnimationFrame(() => {
             setRender(true);
-        }, 1000);
+        });
     }, []);
 
     const handleRestartGame = () => {
@@ -15,17 +16,9 @@ function Modal({ restartGame }) {
     }
 
     return (
-        <div
-            style={{
-                opacity: render ? 1 : 0,
-                height: "100%",
-                width: "100%",
-                position: "absolute",
-                background: "rgba(0,0,0,0.3)",
-            }}
-        >
+        <div className={`modal-overlay ${render ? 'visible' : ''}`}>
             <div id="gameOverImage"></div>
-            <div onClick={() => restartGame()} className="tryAgain">
+            <div onClick={handleRestartGame} className="tryAgain">
                 Try Again
             </div>
         </div>

@@ -1,7 +1,7 @@
 export const revealed = (arr, x, y, newNonMinesCount) => {
-    console.log(arr[x][y]);
+    console.log("x", x, "y", y, "arr", arr, "newNonMinesCount", newNonMinesCount)
+    console.log("Revealed: ",arr[x][y]);
     if (arr[x][y].revealed) {
-        // console.log(arr[x][y])
         return;
     }
     let flipped = [];
