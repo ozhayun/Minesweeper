@@ -1,31 +1,12 @@
 import Cell from "./Cell";
 import "./Board.css"
 import { revealed } from "../../util/reveal";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 const Board = ({ gameOver, setGameOver, boardData, setBoardData, isPaused, onStatsUpdate }) => {
     const [isGameEnded, setIsGameEnded] = useState(false);
-    const [stats, setStats] = useState({
-        revealed: 0,
-        flagged: 0
-    });
 
-    useEffect(() => {
-        if (gameOver) {
-            setIsGameEnded(true);
-        } else {
-            setIsGameEnded(false);
-        }
-    }, [gameOver]);
-
-    useEffect(() => {
-        // Calculate and update stats whenever board changes
-        const newStats = calculateBoardStats();
-        setStats(newStats);
-        onStatsUpdate?.(newStats.revealed, newStats.flagged);
-    }, [boardData.board, calculateBoardStats, onStatsUpdate]);
-
-    const calculateBoardStats = () => {
+    const calculateBoardStats = useCallback(() => {
         if (!boardData.board) return { revealed: 0, flagged: 0 };
         
         let revealed = 0;
@@ -40,7 +21,21 @@ const Board = ({ gameOver, setGameOver, boardData, setBoardData, isPaused, onSta
         });
         
         return { revealed, flagged };
-    };
+    }, [boardData.board]);
+
+    useEffect(() => {
+        if (gameOver) {
+            setIsGameEnded(true);
+        } else {
+            setIsGameEnded(false);
+        }
+    }, [gameOver]);
+
+    useEffect(() => {
+        // Calculate and update stats whenever board changes
+        const newStats = calculateBoardStats();
+        onStatsUpdate?.(newStats.revealed, newStats.flagged);
+    }, [boardData.board, onStatsUpdate, calculateBoardStats]);
 
     if (!boardData || !boardData.board) {
         console.error('boardData or boardData.board is undefined:', boardData);

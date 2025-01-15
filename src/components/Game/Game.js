@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Board from "../Board/Board";
 import createBoard from "../../util/createBoard";
 import GameStats from "../Stats/GameStats";
@@ -31,6 +31,16 @@ export default function Game() {
         gamesWon: 0,
         totalGames: 0
     });
+
+    const refreshBoard = useCallback(() => {
+        const newBoard = createBoard(boardConfig.rows, boardConfig.cols, boardConfig.bombs);
+        setBoardData(newBoard);
+        setGameStats(prev => ({
+            ...prev,
+            revealedCells: 0,
+            flaggedCells: 0
+        }));
+    }, [boardConfig]);
 
     useEffect(() => {
         let timer;
@@ -66,17 +76,7 @@ export default function Game() {
 
     useEffect(() => {
         refreshBoard()
-    }, [boardConfig, refreshBoard]);
-
-    const refreshBoard = () => {
-        const newBoard = createBoard(boardConfig.rows, boardConfig.cols, boardConfig.bombs);
-        setBoardData(newBoard);
-        setGameStats(prev => ({
-            ...prev,
-            revealedCells: 0,
-            flaggedCells: 0
-        }));
-    };
+    }, [refreshBoard]);
 
     const restartGame = () => {
         refreshBoard();
