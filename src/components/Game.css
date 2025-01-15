@@ -1,0 +1,36 @@
+.game-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+.game-title {
+    font-size: 3.5rem;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: filter 0.3s ease-in-out;
+}
+
+.game-container.blur {
+    filter: blur(5px);
+    pointer-events: none;
+} 
+
+.game-container-no-controller {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-container-no-controller.blur {
+    filter: blur(5px);
+    pointer-events: none;
+}

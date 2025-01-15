@@ -4,7 +4,7 @@ import { revealed } from "../util/reveal";
 import Modal from "./Modal";
 import { useEffect, useState } from "react";
 
-const Board = ({ gameOver, setGameOver, boardData, setBoardData, restartGame }) => {
+const Board = ({ gameOver, setGameOver, boardData, setBoardData, isPaused }) => {
     const [isGameEnded, setIsGameEnded] = useState(false);
 
     useEffect(() => {
@@ -21,6 +21,7 @@ const Board = ({ gameOver, setGameOver, boardData, setBoardData, restartGame }) 
     }
 
     const updateFlag = (e, x, y) => {
+        if (isPaused) return;
         e.preventDefault()
         let newBoardData = JSON.parse(JSON.stringify(boardData))
         newBoardData.board[x][y].flagged = true;
@@ -28,7 +29,7 @@ const Board = ({ gameOver, setGameOver, boardData, setBoardData, restartGame }) 
     };
 
     const revealCell = (x, y) => {
-        if (boardData.board[x][y].revealed || isGameEnded) {
+        if (boardData.board[x][y].revealed || isGameEnded || isPaused) {
             return;
         }
 
@@ -59,7 +60,6 @@ const Board = ({ gameOver, setGameOver, boardData, setBoardData, restartGame }) 
 
     return (
         <div className="Board">
-            {isGameEnded && <Modal restartGame={restartGame} />}
             {boardData.board.map((singleRow, i) => {
                 return (
                     <div key={i} className="rowBoard">

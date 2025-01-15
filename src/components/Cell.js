@@ -5,14 +5,14 @@ import {mineColor} from "../util/mineColors";
 const Cell = ({ cell, updateFlag, revealCell }) => {
     const style = {
         block: {
-            width: 40,
-            height: 40,
+            width: 60,
+            height: 60,
             color: numColorCode(cell.value),
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             fontWeight: 800,
-            fontSize: 30,
+            fontSize: 35,
             cursor: "pointer",
             background: cell.revealed
                 ? cell.value === "X"
@@ -29,8 +29,8 @@ const Cell = ({ cell, updateFlag, revealCell }) => {
     return (
         <div style={style.block}
             onContextMenu={(e) => onClickFlag(e)}
-             onClick={() => revealCell(cell.x, cell.y)}
-             className="Cell">
+            onClick={() => revealCell(cell.x, cell.y)}
+            className="Cell">
             {!cell.revealed && cell.flagged
                 ? "🚩"
                 : cell.revealed && cell.value !== 0
@@ -38,7 +38,6 @@ const Cell = ({ cell, updateFlag, revealCell }) => {
                         ? "💣"
                         : cell.value
                     : ""}
-            {/*{cell.value !==0 && cell.value}*/}
         </div>
     )
 }
