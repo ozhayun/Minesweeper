@@ -59,7 +59,7 @@ const Board = ({ gameOver, setGameOver, boardData, setBoardData, restartGame }) 
 
     return (
         <div className="Board">
-            {isGameEnded && <Modal restartGame={restartGame} />}
+            {/* {isGameEnded && <Modal restartGame={restartGame} />} */}
             {boardData.board.map((singleRow, i) => {
                 return (
                     <div key={i} className="rowBoard">
